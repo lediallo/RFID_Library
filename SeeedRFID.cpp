@@ -105,8 +105,10 @@ boolean SeeedRFID::read() {
         #endif
         delay(10);
     }
+    _data.valid = _isAvailable = true;
+    return true;
+   // return SeeedRFID::checkBitValidationUART();
 
-    return SeeedRFID::checkBitValidationUART();
 }
 
 boolean SeeedRFID::isAvailable() {
@@ -118,6 +120,8 @@ boolean SeeedRFID::isAvailable() {
             return false;
             break;
         default:
+            // Read the data in loop
+            _type=RFID_UART;
             return false;
             break;
     }
@@ -162,5 +166,5 @@ unsigned long SeeedRFID::cardNumber() {
     Serial.println(sum);
     #endif
 
-    return sum;
+ return sum;
 }
